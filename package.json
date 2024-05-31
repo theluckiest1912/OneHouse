@@ -38,5 +38,9 @@
     "morgan": "^1.10.0",
     "node-sass": "^9.0.0",
     "nodemon": "^3.1.0"
+  },
+  "scripts": {
+    "build": "npm install && npm rebuild node-sass",
+    "start": "npm rebuild node-sass && node src/index.js"
   }
 }
