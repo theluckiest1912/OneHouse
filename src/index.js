@@ -10,6 +10,9 @@ const flash = require('connect-flash');
 const Handlebars = require('handlebars');
 const passport = require('passport');
 
+const PORT = process.env.PORT || 3000;
+
+
 const app = express();
 
 const route = require('./routes/index.js');
@@ -175,6 +178,6 @@ app.use(flash());
 // Routes & Controllers
 route(app);
 
-app.listen(8888, 'localhost', () => {
-    console.log('Server is running on http://localhost:8888');
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
