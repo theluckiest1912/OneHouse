@@ -1,12 +1,10 @@
 {
-  "name": "onehouse",
+  "name": "term_first",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "postinstall": "npm rebuild node-sass",
-    "build": "npm install && npm rebuild node-sass",
-    "start": "node src/index.js",
+    "start": "nodemon --inspect src/index.js",
     "watch": "node-sass --watch src/resources/scss/ -o src/public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -38,7 +36,7 @@
   },
   "devDependencies": {
     "morgan": "^1.10.0",
-    "sass": "^1.32.8",
+    "node-sass": "^9.0.0",
     "nodemon": "^3.1.0"
   }
 }
