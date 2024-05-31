@@ -12,7 +12,6 @@ const passport = require('passport');
 
 const PORT = process.env.PORT || 3000;
 
-
 const app = express();
 
 const route = require('./routes/index.js');
