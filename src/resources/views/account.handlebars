@@ -52,12 +52,15 @@
                     Đổi mật khẩu
                 </a>
             </div>
+            {{#if session.provider}}
+            {{else}}
             <div class="avatar">
                 <label for="avatar">Ảnh đại diện</label>
                 <input type="file" id="upload-avatar" accept="image/*" name="avatar" style="display: none;">
                 <img id="avatar" src="{{session.avatar}}" alt="avatar" style="border: 1px solid black; border-radius: 50%; width: 160px; height: 160px; margin-left: 160px; margin-bottom: 50px;">
                 <button id="upload-button" type="button" style="border:1px solid black; margin-left:200px">Chọn ảnh</button>
             </div>
+            {{/if}}
             <button type="submit" id="saving-button" class="saving-button">
                 Lưu & Cập nhật
             </button>
@@ -79,7 +82,5 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
