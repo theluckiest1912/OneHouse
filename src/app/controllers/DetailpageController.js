@@ -47,7 +47,8 @@ async function getImage(imgPath) {
 class DetailController {
     async index(req, res) {
         try {
-            const post = await Post.findOne({ slug: req.params.slug });
+            const slugRegex = new RegExp(`\\b${req.params.slug}\\b`, 'i');
+            const post = await Post.findOne({ slug: { $regex: slugRegex } });
             if (!post) {
                 throw new Error('House not found');
             }
@@ -61,7 +62,10 @@ class DetailController {
             const avgRating = totalRate / ratesData.length;
             ratesData.avg = avgRating.toFixed(1);
     
-            const owner = await User.findOne({ _id: post.user_id });
+            let owner = await User.findOne({ _id: post.user_id });
+            if (!owner) {
+                owner = await googleUser.findOne({ _id: post.user_id });
+            }
             if (!owner) {
                 throw new Error('Owner not found');
             }
@@ -70,7 +74,10 @@ class DetailController {
             const folderPath = postData.images;
             const imagesData = await getImageUrls(folderPath);
 
-            const user = await User.findOne({ _id: req.userId });
+            let user = await User.findOne({ _id: req.userId });
+            if (!user) {
+                user = await googleUser.findOne({ _id: req.userId });
+            }
             if (!user) {
                 res.render('detailpage', {
                     showHeader: true,
@@ -111,6 +118,12 @@ class DetailController {
                 }
                 postData = post.toObject();
                 return User.findOne({ _id: req.userId });
+            })
+            .then(user => {
+                if (!user) {
+                    return googleUser.findOne({ _id: req.userId });
+                }
+                return user;
             })
             .then(user => {
                 if (!user) {
@@ -180,8 +193,8 @@ class DetailController {
             amount: 10000,
             description: 'Thanh toán online',
             orderCode: Math.floor(Math.random() * 10101010),
-            returnUrl: 'http://localhost:8888/phong-tro/payment-success',
-            cancelUrl: 'http://localhost:8888/phong-tro/payment-failure',
+            returnUrl: 'https://onehouse.onrender.com/phong-tro/payment-success',
+            cancelUrl: 'https://onehouse.onrender.com/phong-tro/payment-failure',
         };
 
         const paymentLink = await payos.createPaymentLink(order);

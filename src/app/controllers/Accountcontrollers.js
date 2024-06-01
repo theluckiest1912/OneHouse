@@ -4,7 +4,7 @@ const Posts = require('../modules/post')
 const googleUser = require('../modules/google')
 const { initializeApp } = require("firebase/app");
 const { getStorage, ref, getDownloadURL, listAll, uploadBytes } = require("firebase/storage");
-const { readdirSync, readFileSync, unlinkSync } = require("fs");
+const { readdirSync, readFileSync, statSync, unlinkSync } = require("fs");
 
 const firebaseConfig = {
     apiKey: "AIzaSyDF36H8mFiTkXTyvRD6z-4YHmqsNCZ4yxE",
@@ -44,7 +44,13 @@ async function getImageUrl(ImagePath) {
 
 async function uploadImagesToFirebase(userId) {
     try {
-        const file = readdirSync('src/public/storage')[0];
+        let files = readdirSync('src/public/storage');
+        files.sort((a, b) => {
+            const aStat = statSync(path.join('src/public/storage', a));
+            const bStat = statSync(path.join('src/public/storage', b));
+            return bStat.birthtime - aStat.birthtime;
+          });
+        const file = files[0];
         const filePath = path.join('src/public/storage', String(file));
         const uploadPath = `${userId}/${file}`;
         const extname = path.extname(filePath).toLowerCase();
@@ -77,7 +83,7 @@ class UserController {
             }
             res.render('account', {
                 showHeader: true,
-                name: user.name,
+name: user.name,
                 email: user.email,
                 phone: user.phone,
                 address: user.address,
@@ -161,7 +167,7 @@ class UserController {
     async changePassword(req, res) {
         const { oldpassword, newpassword } = req.body;
         try {
-            // Find the user in the database
+// Find the user in the database
             let user = await User.findOne({ _id: req.userId });
             if (!user) {
                 user = await googleUser.findOne({ _id: req.userId });

@@ -56,10 +56,10 @@ async function uploadImagesToFirebase(district, typeHouse, postId) {
 function handler(m_string) {
   const regex = /\d+/;
   if (regex.test(m_string)) {
-    const match = m_string.match(regex)[0];
+    let match = m_string.match(regex)[0];
     return `Q${match}`;
   } else {
-    const partials = m_string.split(" ");
+    let partials = m_string.split(" ");
     partials = partials.slice(-2);
     return partials.join(" ");
   }
@@ -153,8 +153,8 @@ class PostController {
             amount: 10000,
             description: 'Thanh toán tin đăng',
             orderCode: Math.floor(Math.random() * 10101010),
-            returnUrl: 'http://localhost:8888/post/payment-success',
-            cancelUrl: 'http://localhost:8888/post/payment-failure',
+            returnUrl: 'https://onehouse.onrender.com/post/payment-success',
+            cancelUrl: 'https://onehouse.onrender.com/payment-failure',
         };
 
         const paymentLink = await payos.createPaymentLink(order);

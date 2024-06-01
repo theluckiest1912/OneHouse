@@ -64,17 +64,6 @@ function handler(m_string, regex) {
     }
 }
 
-// async function sendEmail(email, otp) {
-//     const info = await transporter.sendMail({
-//         from: "cuongnguyen462196@gmail.com",
-//         to: email,
-//         subject: "Mã xác thực quên mật khẩu OneHouse",
-//         html: `<b>Mã xác thực của bạn ${otp}</b>`,
-//       }).catch(console.error);
-
-//       return info ? info.messageId : null;
-// }
-
 class SiteController {
     index(req, res) {
         Posts.find({ status: 1 }).sort({ type_post: -1 }).exec()
