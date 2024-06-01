@@ -2,10 +2,8 @@ const Post = require('../modules/post');
 const User = require("../modules/user")
 const Stats = require("../modules/stats")
 const Reports = require("../modules/reports")
-const mongoose = require('mongoose')
 const { initializeApp } = require('firebase/app')
 const {getStorage, ref, getDownloadURL, listAll} = require('firebase/storage');
-const { types } = require('node-sass');
 
 const firebaseConfig = {
     apiKey: "AIzaSyDF36H8mFiTkXTyvRD6z-4YHmqsNCZ4yxE",

@@ -10,10 +10,8 @@ const flash = require('connect-flash');
 const Handlebars = require('handlebars');
 const passport = require('passport');
 
-const PORT = process.env.PORT || 3000;
-
 const app = express();
-
+const PORT = process.env.PORT || 3000;
 const route = require('./routes/index.js');
 const db = require('./config/db/index.js')
 

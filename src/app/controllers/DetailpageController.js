@@ -1,5 +1,6 @@
 const Post = require('../modules/post');
 const User = require('../modules/user');
+const googleUser = require('../modules/google')
 const Rate = require('../modules/rate')
 const Report = require('../modules/reports')
 const mongoose = require('mongoose')
@@ -47,8 +48,7 @@ async function getImage(imgPath) {
 class DetailController {
     async index(req, res) {
         try {
-            const slugRegex = new RegExp(`\\b${req.params.slug}\\b`, 'i');
-            const post = await Post.findOne({ slug: { $regex: slugRegex } });
+            const post = await Post.findOne({ slug: req.params.slug });
             if (!post) {
                 throw new Error('House not found');
             }
@@ -193,8 +193,8 @@ class DetailController {
             amount: 10000,
             description: 'Thanh toán online',
             orderCode: Math.floor(Math.random() * 10101010),
-            returnUrl: 'https://onehouse.onrender.com/phong-tro/payment-success',
-            cancelUrl: 'https://onehouse.onrender.com/phong-tro/payment-failure',
+            returnUrl: 'https://onehousedev.onrender.com/phong-tro/payment-success',
+            cancelUrl: 'https://onehousedev.onrender.com/phong-tro/payment-failure',
         };
 
         const paymentLink = await payos.createPaymentLink(order);

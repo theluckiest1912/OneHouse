@@ -83,7 +83,7 @@ class UserController {
             }
             res.render('account', {
                 showHeader: true,
-name: user.name,
+                name: user.name,
                 email: user.email,
                 phone: user.phone,
                 address: user.address,
@@ -162,12 +162,12 @@ name: user.name,
         }
     }    
     password(req, res) {
-        res.render('changePassword', {showHeader: true, successMessage: req.flash('success'), errorMessage: req.flash('error') });
+        res.render('changepassword', {showHeader: true, successMessage: req.flash('success'), errorMessage: req.flash('error') });
     }
     async changePassword(req, res) {
         const { oldpassword, newpassword } = req.body;
         try {
-// Find the user in the database
+            // Find the user in the database
             let user = await User.findOne({ _id: req.userId });
             if (!user) {
                 user = await googleUser.findOne({ _id: req.userId });
